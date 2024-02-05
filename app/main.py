@@ -85,7 +85,7 @@ app = FastAPI(title="Willow Application Server",
               docs_url="/docs",
               lifespan=lifespan,
               redoc_url="/redoc",
-              version=settings.was_version)
+              version="2.1.0")
 
 wake_session = None
 
@@ -176,6 +176,11 @@ async def websocket_endpoint(
                 if "wake_volume" in msg["wake_start"]:
                     wake_event = WakeEvent(websocket, msg["wake_start"]["wake_volume"])
                     wake_session.add_event(wake_event)
+
+            elif "wakeup" in msg:
+                log.info("WAKE")
+                await app.connmgr.broadcast(json.dumps({'wakeup': {'wake': True}}))
+                await app.connmgr.broadcast("wakeup")
 
             elif "wake_end" in msg:
                 pass
