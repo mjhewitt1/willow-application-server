@@ -30,5 +30,6 @@ if os.path.isfile(STORAGE_DEVICES_CONFIG):
         label = device["label"]
         user_config = {"mac_addr": mac_addr, "label": label}
         new_devices.append(user_config)
+    print(new_devices)
 
     save_json_to_file(STORAGE_USER_CLIENT_CONFIG, json.dumps(new_devices))

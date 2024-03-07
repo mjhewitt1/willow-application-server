@@ -249,11 +249,17 @@ def get_releases_local():
 
 
 def get_releases_willow():
-    releases = requests.get(URL_WILLOW_RELEASES)
-    releases = releases.json()
+    releases = []
+    try:
+        releases = requests.get(URL_WILLOW_RELEASES)
+        releases = releases.json()
+    except requests.exceptions.ConnectionError as e:
+        print(f"Failed to fetch releases from heywillow.io: {e}")
+        pass
     try:
         releases_local = get_releases_local()
     except Exception:
+        print(f"Failed to fetch local releases: {e}")
         pass
     else:
         releases = releases_local + releases
@@ -277,7 +283,6 @@ def get_tz_config(refresh=False):
         with open(STORAGE_TZ, "w") as tz_file:
             json.dump(tz, tz_file)
         tz_file.close()
-
     return get_json_from_file(STORAGE_TZ)
 
 

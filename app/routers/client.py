@@ -51,7 +51,6 @@ async def api_get_client(request: Request):
         sorted_clients = sorted(clients, key=lambda x: x['label'])
     except Exception:
         sorted_clients = sorted(clients, key=lambda x: x['hostname'])
-
     return JSONResponse(content=sorted_clients)
 
 
