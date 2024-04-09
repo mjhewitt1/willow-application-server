@@ -178,9 +178,19 @@ async def websocket_endpoint(
                     wake_session.add_event(wake_event)
 
             elif "wakeup" in msg:
-                log.info("WAKE")
-                await app.connmgr.broadcast(json.dumps({'wakeup': {'wake': True}}))
+                log.info("wakeup")
                 await app.connmgr.broadcast("wakeup")
+                await app.connmgr.broadcast(json.dumps({'wakeup': {'wake': True}}))
+
+            elif "record-audio" in msg:
+                log.info("record-audio")
+                await app.connmgr.broadcast("record-audio")
+                await app.connmgr.broadcast(json.dumps({'record-audio': {'wake': True}}))
+
+            elif "stop-record-audio" in msg:
+                log.info("stop-record-audio")
+                await app.connmgr.broadcast("stop-record-audio")
+                await app.connmgr.broadcast(json.dumps({'stop-record-audio': {'wake': True}}))
 
             elif "wake_end" in msg:
                 pass
