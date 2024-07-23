@@ -162,6 +162,7 @@ cython_debug/
 # WAS
 static/
 storage
+!storage/tz.json
 
 # Web UI working directory and others
 work
