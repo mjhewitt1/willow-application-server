@@ -63,7 +63,7 @@ settings = get_settings()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     migrate_user_files()
-    get_tz_config(refresh=False)
+    get_tz_config(refresh=True)
 
     app.connmgr = ConnMgr()
 

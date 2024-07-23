@@ -277,12 +277,23 @@ def get_tz():
     return tz
 
 
+def is_connected():
+    try:
+        requests.get("https://www.google.com", timeout=5)
+        return True
+    except requests.ConnectionError:
+        return False
+
+
 def get_tz_config(refresh=False):
-    if refresh:
-        tz = requests.get(URL_WILLOW_TZ).json()
-        with open(STORAGE_TZ, "w") as tz_file:
-            json.dump(tz, tz_file)
-        tz_file.close()
+    if refresh and is_connected():
+        try:
+            tz = requests.get(URL_WILLOW_TZ).json()
+            with open(STORAGE_TZ, "w") as tz_file:
+                json.dump(tz, tz_file)
+            tz_file.close()
+        except requests.RequestException:
+            print("Failed to fetch timezone data from remote URL. Using local version.")
     return get_json_from_file(STORAGE_TZ)
 
 

@@ -98,7 +98,7 @@ build-web-ui() {
 }
 
 gen-tz() {
-    curl --output misc/gen-tz.py https://raw.githubusercontent.com/nayarsystems/posix_tz_db/master/gen-tz.py
+    curl --silent --output misc/gen-tz.py https://raw.githubusercontent.com/nayarsystems/posix_tz_db/master/gen-tz.py
     python3 misc/gen-tz.py --json > tz.json
 }
 
