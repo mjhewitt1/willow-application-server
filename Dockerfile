@@ -17,4 +17,6 @@ EXPOSE 8502
 ARG WAS_VERSION
 ENV WAS_VERSION=$WAS_VERSION
 
+COPY tz.json /app/storage/tz.json
+
 CMD /app/entrypoint.sh
